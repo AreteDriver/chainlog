@@ -1,0 +1,49 @@
+{
+  "name": "@chainlog/sdk",
+  "version": "0.1.0",
+  "description": "Two lines of code. Every AI action, permanently on-chain.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ai",
+    "audit",
+    "blockchain",
+    "base",
+    "compliance",
+    "immutable",
+    "logging",
+    "agents",
+    "chainlog"
+  ],
+  "author": "ARETE (James C. Young)",
+  "license": "MIT",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AreteDriver/chainlog.git",
+    "directory": "sdk"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "ethers": "^6.13.0",
+    "better-sqlite3": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^3.0.0"
+  }
+}

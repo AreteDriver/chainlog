@@ -7,9 +7,9 @@ Tamper-proof audit trails for AI agents. Writes cryptographic fingerprints of ag
 ## Current State
 
 - **Version**: 0.1.0
-- **Sprint**: 3 (Python SDK)
+- **Sprint**: 4 (CLI + Deploy)
 - **Network**: Base Sepolia (testnet)
-- **Tests**: 18 contract + 31 SDK (TS) + 31 SDK (Python) = 80 total
+- **Tests**: 18 contract + 31 SDK (TS) + 31 SDK (Python) + 11 CLI = 91 total
 
 ## Architecture
 
@@ -22,6 +22,8 @@ chainlog/
 │   └── src/            # chainlog.ts, hasher.ts, store.ts, chain.ts, types.ts
 ├── python/             # Python SDK (31 tests)
 │   └── src/chainlog/   # client.py, hasher.py, store.py, chain.py, types.py
+├── cli/                # CLI verifier tool (11 tests)
+│   └── src/            # index.ts, contract.ts, hasher.ts, abi.ts
 ├── scripts/            # Deployment and utility scripts
 ├── ignition/modules/   # Hardhat Ignition deploy modules
 ├── hardhat.config.ts   # Network and compiler config
@@ -61,6 +63,17 @@ npm run deploy:mainnet
 cd python && pip install -e ".[dev]"
 python -m pytest tests/ -v
 ruff check src/ tests/ && ruff format src/ tests/
+
+# CLI
+cd cli && npm install && npm test
+chainlog -c 0x... verify -a agent-1 -i 0 -h 0x...
+chainlog -c 0x... inspect -a agent-1 -i 0
+chainlog -c 0x... count -a agent-1
+chainlog -c 0x... stats
+chainlog hash -d '{"hello":"world"}'
+
+# Deploy to Base Sepolia (requires DEPLOYER_PRIVATE_KEY)
+./scripts/deploy.sh
 ```
 
 ## Coding Standards

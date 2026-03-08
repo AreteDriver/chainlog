@@ -1,0 +1,29 @@
+{
+  "name": "@chainlog/cli",
+  "version": "0.1.0",
+  "description": "ChainLog CLI — verify and inspect on-chain agent audit trails",
+  "type": "module",
+  "bin": {
+    "chainlog": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "^13.1.0",
+    "ethers": "^6.13.0",
+    "chalk": "^5.4.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2",
+    "tsx": "^4.19.0",
+    "vitest": "^3.1.0",
+    "@types/node": "^22.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

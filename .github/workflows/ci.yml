@@ -80,6 +80,36 @@ jobs:
         run: npm test
         working-directory: sdk
 
+  cli-test:
+    name: CLI Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "cli/package-lock.json"
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: cli
+
+      - name: Type check
+        run: npm run lint
+        working-directory: cli
+
+      - name: Build
+        run: npm run build
+        working-directory: cli
+
+      - name: Run tests
+        run: npm test
+        working-directory: cli
+
   python-test:
     name: Python SDK Tests
     runs-on: ubuntu-latest

@@ -33,6 +33,9 @@
     "url": "git+https://github.com/AreteDriver/chainlog.git",
     "directory": "sdk"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=18"
   },

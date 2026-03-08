@@ -10,8 +10,24 @@
     "build": "tsc",
     "dev": "tsx src/index.ts",
     "test": "vitest run",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
   },
+  "author": "ARETE (James C. Young)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AreteDriver/chainlog.git",
+    "directory": "cli"
+  },
+  "keywords": [
+    "ai",
+    "audit",
+    "blockchain",
+    "cli",
+    "chainlog",
+    "verification"
+  ],
   "dependencies": {
     "commander": "^13.1.0",
     "ethers": "^6.13.0",
@@ -22,6 +38,12 @@
     "tsx": "^4.19.0",
     "vitest": "^3.1.0",
     "@types/node": "^22.0.0"
+  },
+  "files": [
+    "dist/"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "engines": {
     "node": ">=18"

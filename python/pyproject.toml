@@ -34,6 +34,8 @@ dev = [
 [project.urls]
 Homepage = "https://github.com/AreteDriver/chainlog"
 Repository = "https://github.com/AreteDriver/chainlog"
+Issues = "https://github.com/AreteDriver/chainlog/issues"
+Changelog = "https://github.com/AreteDriver/chainlog/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["src"]

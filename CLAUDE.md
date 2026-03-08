@@ -7,8 +7,9 @@ Tamper-proof audit trails for AI agents. Writes cryptographic fingerprints of ag
 ## Current State
 
 - **Version**: 0.1.0
-- **Sprint**: 5 (Dashboard MVP)
+- **Sprint**: 5 (Dashboard MVP) — all spec sprints complete
 - **Network**: Base Sepolia (testnet)
+- **Files**: 83 across 4 languages (Solidity, TypeScript, Python, CSS)
 - **Tests**: 18 contract + 31 SDK (TS) + 31 SDK (Python) + 11 CLI = 91 total
 
 ## Architecture
@@ -112,6 +113,27 @@ chainlog hash -d '{"hello":"world"}'
 3. SDK write is always async and non-blocking. Agent execution must never wait for chain confirmation.
 4. Raw PII never goes on-chain. Hash it first. Always.
 5. Protocol fee (if added) routes to treasury address set at deploy time — never modifiable post-deploy.
+
+## Domain Context
+
+### Key Classes
+- `ChainLog` — Solidity contract + SDK client class (TS and Python)
+- `ChainWriter` — Async on-chain writer (web3.py / ethers.js)
+- `LocalStore` — SQLite WAL write-ahead buffer
+- `ActionRecord` — Canonical action data structure (hashed for on-chain)
+
+### Key Constants
+- `BASE_SEPOLIA_RPC` — `https://sepolia.base.org`
+- `BASE_MAINNET_RPC` — `https://mainnet.base.org`
+- `CHAINLOG_ABI` — Minimal contract ABI (logAction, verifyAction, getRecordCount)
+
+### Environment Variables
+- `DEPLOYER_PRIVATE_KEY` — Wallet key for contract deployment
+- `CHAINLOG_CONTRACT_ADDRESS` — Deployed contract address
+- `CHAINLOG_PRIVATE_KEY` — Wallet key for SDK chain writes
+- `CHAINLOG_RPC_URL` — Custom RPC endpoint (optional)
+- `NEXT_PUBLIC_CHAINLOG_CONTRACT` — Contract address for dashboard
+- `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` — WalletConnect project ID
 
 ## Git Conventions
 

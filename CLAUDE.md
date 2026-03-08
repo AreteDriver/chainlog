@@ -7,8 +7,9 @@ Tamper-proof audit trails for AI agents. Writes cryptographic fingerprints of ag
 ## Current State
 
 - **Version**: 0.1.0
-- **Sprint**: 1 (Contract + Tests)
+- **Sprint**: 3 (Python SDK)
 - **Network**: Base Sepolia (testnet)
+- **Tests**: 18 contract + 31 SDK (TS) + 31 SDK (Python) = 80 total
 
 ## Architecture
 
@@ -16,7 +17,11 @@ Tamper-proof audit trails for AI agents. Writes cryptographic fingerprints of ag
 chainlog/
 ├── contracts/          # Solidity smart contracts
 │   └── ChainLog.sol    # Core contract
-├── test/               # Hardhat test suite
+├── test/               # Hardhat test suite (18 tests)
+├── sdk/                # TypeScript SDK (31 tests)
+│   └── src/            # chainlog.ts, hasher.ts, store.ts, chain.ts, types.ts
+├── python/             # Python SDK (31 tests)
+│   └── src/chainlog/   # client.py, hasher.py, store.py, chain.py, types.py
 ├── scripts/            # Deployment and utility scripts
 ├── ignition/modules/   # Hardhat Ignition deploy modules
 ├── hardhat.config.ts   # Network and compiler config
@@ -25,10 +30,10 @@ chainlog/
 
 ## Tech Stack
 
-- **Language**: Solidity ^0.8.20, TypeScript
-- **Framework**: Hardhat 3
-- **Testing**: Chai + Hardhat Toolbox
+- **Language**: Solidity ^0.8.20, TypeScript, Python
+- **Framework**: Hardhat 2, vitest, pytest
 - **Blockchain**: Base L2 (Ethereum)
+- **Python deps**: web3.py >=7.0.0
 - **Deploy**: Hardhat Ignition
 
 ## Common Commands
@@ -51,6 +56,11 @@ npm run deploy:sepolia
 
 # deploy to Base mainnet
 npm run deploy:mainnet
+
+# Python SDK
+cd python && pip install -e ".[dev]"
+python -m pytest tests/ -v
+ruff check src/ tests/ && ruff format src/ tests/
 ```
 
 ## Coding Standards
@@ -58,7 +68,8 @@ npm run deploy:mainnet
 - **Solidity**: Minimal surface area, NatSpec comments on all public functions
 - **TypeScript**: strict mode, no `any`
 - **Tests**: 100% contract coverage target
-- **Naming**: camelCase (Solidity/TS), UPPER_CASE for constants
+- **Python**: ruff lint + format, type hints, snake_case
+- **Naming**: camelCase (Solidity/TS), snake_case (Python), UPPER_CASE for constants
 
 ## Anti-Patterns (Do NOT Do)
 

@@ -1,0 +1,40 @@
+{
+  "name": "chainlog",
+  "version": "0.1.0",
+  "description": "Tamper-proof audit trails for AI agents. Verifiable by anyone. Alterable by no one.",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:gas": "REPORT_GAS=true hardhat test",
+    "coverage": "hardhat coverage",
+    "deploy:sepolia": "hardhat ignition deploy ignition/modules/ChainLog.ts --network baseSepolia",
+    "deploy:mainnet": "hardhat ignition deploy ignition/modules/ChainLog.ts --network base",
+    "clean": "hardhat clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AreteDriver/chainlog.git"
+  },
+  "keywords": [
+    "ai",
+    "audit",
+    "blockchain",
+    "base",
+    "compliance",
+    "immutable",
+    "logging",
+    "agents"
+  ],
+  "author": "ARETE (James C. Young)",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AreteDriver/chainlog/issues"
+  },
+  "homepage": "https://github.com/AreteDriver/chainlog#readme",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.1.2",
+    "hardhat": "^2.28.6"
+  }
+}

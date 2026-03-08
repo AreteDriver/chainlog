@@ -7,7 +7,7 @@ Tamper-proof audit trails for AI agents. Writes cryptographic fingerprints of ag
 ## Current State
 
 - **Version**: 0.1.0
-- **Sprint**: 4 (CLI + Deploy)
+- **Sprint**: 5 (Dashboard MVP)
 - **Network**: Base Sepolia (testnet)
 - **Tests**: 18 contract + 31 SDK (TS) + 31 SDK (Python) + 11 CLI = 91 total
 
@@ -24,6 +24,8 @@ chainlog/
 │   └── src/chainlog/   # client.py, hasher.py, store.py, chain.py, types.py
 ├── cli/                # CLI verifier tool (11 tests)
 │   └── src/            # index.ts, contract.ts, hasher.ts, abi.ts
+├── dashboard/          # Next.js dashboard (Vercel)
+│   └── src/            # app/, components/, lib/
 ├── scripts/            # Deployment and utility scripts
 ├── ignition/modules/   # Hardhat Ignition deploy modules
 ├── hardhat.config.ts   # Network and compiler config
@@ -33,10 +35,11 @@ chainlog/
 ## Tech Stack
 
 - **Language**: Solidity ^0.8.20, TypeScript, Python
-- **Framework**: Hardhat 2, vitest, pytest
+- **Framework**: Hardhat 2, vitest, pytest, Next.js 16
 - **Blockchain**: Base L2 (Ethereum)
 - **Python deps**: web3.py >=7.0.0
-- **Deploy**: Hardhat Ignition
+- **Dashboard**: RainbowKit + wagmi + ethers.js + Tailwind
+- **Deploy**: Hardhat Ignition, Vercel (dashboard)
 
 ## Common Commands
 
@@ -99,6 +102,16 @@ chainlog hash -d '{"hello":"world"}'
 - Events over storage where possible (cheaper gas)
 - Batch operations capped at 100 to prevent gas limit issues
 - No admin functions, no upgradability — immutable by design
+- State updates BEFORE value transfers (reentrancy prevention — always)
+- Run Slither static analysis before ANY mainnet deployment
+
+## Core Invariants (Never Violate)
+
+1. `logAction()` is append-only. No delete, no update functions. Ever.
+2. Hash construction: `keccak256(abi.encodePacked(agentId, actionType, inputHash, outputHash, modelId, timestamp))` — field order is canonical, never change it.
+3. SDK write is always async and non-blocking. Agent execution must never wait for chain confirmation.
+4. Raw PII never goes on-chain. Hash it first. Always.
+5. Protocol fee (if added) routes to treasury address set at deploy time — never modifiable post-deploy.
 
 ## Git Conventions
 

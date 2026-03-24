@@ -1,6 +1,6 @@
 {
   "name": "chainlog",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Tamper-proof audit trails for AI agents. Verifiable by anyone. Alterable by no one.",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,10 @@
     "coverage": "hardhat coverage",
     "deploy:sepolia": "hardhat ignition deploy ignition/modules/ChainLog.ts --network baseSepolia",
     "deploy:mainnet": "hardhat ignition deploy ignition/modules/ChainLog.ts --network base",
+    "deploy:registry:sepolia": "hardhat ignition deploy ignition/modules/ModelVersionRegistry.ts --network baseSepolia",
+    "deploy:registry:mainnet": "hardhat ignition deploy ignition/modules/ModelVersionRegistry.ts --network base",
+    "deploy:dms:sepolia": "hardhat ignition deploy ignition/modules/DeadMansSwitch.ts --network baseSepolia --parameters ignition/params/dms.json",
+    "deploy:dms:mainnet": "hardhat ignition deploy ignition/modules/DeadMansSwitch.ts --network base --parameters ignition/params/dms.json",
     "clean": "hardhat clean"
   },
   "repository": {

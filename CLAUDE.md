@@ -6,19 +6,21 @@ Tamper-proof audit trails for AI agents. Writes cryptographic fingerprints of ag
 
 ## Current State
 
-- **Version**: 0.1.0
-- **Sprint**: 5 (Dashboard MVP) — all spec sprints complete
+- **Version**: 0.2.0
+- **Sprint**: 6 (Model Version Pinning + Dead Man's Switch)
 - **Network**: Base Sepolia (testnet)
-- **Files**: 83 across 4 languages (Solidity, TypeScript, Python, CSS)
-- **Tests**: 18 contract + 31 SDK (TS) + 31 SDK (Python) + 11 CLI = 91 total
+- **Contracts**: 3 (ChainLog, ModelVersionRegistry, DeadMansSwitch)
+- **Tests**: 74 contract + 31 SDK (TS) + 31 SDK (Python) + 11 CLI = 147 total
 
 ## Architecture
 
 ```
 chainlog/
 ├── contracts/          # Solidity smart contracts
-│   └── ChainLog.sol    # Core contract
-├── test/               # Hardhat test suite (18 tests)
+│   ├── ChainLog.sol              # Core audit trail contract
+│   ├── ModelVersionRegistry.sol  # Model version pinning (EU AI Act compliance)
+│   └── DeadMansSwitch.sol        # Unstoppable contingency trigger
+├── test/               # Hardhat test suite (74 tests)
 ├── sdk/                # TypeScript SDK (31 tests)
 │   └── src/            # chainlog.ts, hasher.ts, store.ts, chain.ts, types.ts
 ├── python/             # Python SDK (31 tests)
@@ -57,11 +59,17 @@ npm run test:gas
 # coverage
 npm run coverage
 
-# deploy to Base Sepolia
+# deploy ChainLog to Base Sepolia/mainnet
 npm run deploy:sepolia
-
-# deploy to Base mainnet
 npm run deploy:mainnet
+
+# deploy ModelVersionRegistry
+npm run deploy:registry:sepolia
+npm run deploy:registry:mainnet
+
+# deploy DeadMansSwitch (edit ignition/params/dms.json first!)
+npm run deploy:dms:sepolia
+npm run deploy:dms:mainnet
 
 # Python SDK
 cd python && pip install -e ".[dev]"
@@ -113,19 +121,28 @@ chainlog hash -d '{"hello":"world"}'
 3. SDK write is always async and non-blocking. Agent execution must never wait for chain confirmation.
 4. Raw PII never goes on-chain. Hash it first. Always.
 5. Protocol fee (if added) routes to treasury address set at deploy time — never modifiable post-deploy.
+6. `DeadMansSwitch.execute()` fires exactly once. `triggered` flag set BEFORE ETH transfer.
+7. `DeadMansSwitch` has no pause, no cancel, no upgrade. Once deployed, it fires or it doesn't.
+8. `ModelVersionRegistry.pinVersion()` is append-only. Pins are never deleted or updated.
+9. Model version pins distinguish trust level via `pinMethod` field: PROVIDER_HASH, PROXY_FINGERPRINT, or SELF_ATTESTED.
 
 ## Domain Context
 
 ### Key Classes
-- `ChainLog` — Solidity contract + SDK client class (TS and Python)
+- `ChainLog` — Core audit trail contract + SDK client class (TS and Python)
+- `ModelVersionRegistry` — Model version pinning contract (EU AI Act Article 13)
+- `DeadMansSwitch` — Heartbeat-based contingency trigger contract
 - `ChainWriter` — Async on-chain writer (web3.py / ethers.js)
 - `LocalStore` — SQLite WAL write-ahead buffer
 - `ActionRecord` — Canonical action data structure (hashed for on-chain)
+- `PinRecord` — Model version pin record (modelHash, pinMethod, metadata, timestamp, operator)
 
 ### Key Constants
 - `BASE_SEPOLIA_RPC` — `https://sepolia.base.org`
 - `BASE_MAINNET_RPC` — `https://mainnet.base.org`
 - `CHAINLOG_ABI` — Minimal contract ABI (logAction, verifyAction, getRecordCount)
+- `MODEL_REGISTRY_ABI` — Registry ABI (pinVersion, getLatestPin, verifyPin, getPins)
+- `DMS_ABI` — Switch ABI (heartbeat, execute, timeRemaining, isExpired)
 
 ### Environment Variables
 - `DEPLOYER_PRIVATE_KEY` — Wallet key for contract deployment

@@ -1,0 +1,6 @@
+{
+  "DeadMansSwitchModule": {
+    "beneficiary": "0x0000000000000000000000000000000000000000",
+    "expiryWindow": 259200
+  }
+}

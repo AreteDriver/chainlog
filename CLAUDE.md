@@ -152,6 +152,11 @@ chainlog hash -d '{"hello":"world"}'
 - `NEXT_PUBLIC_CHAINLOG_CONTRACT` — Contract address for dashboard
 - `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` — WalletConnect project ID
 
+## Frontend Dev Tools
+
+- **Agentation** (`npm install agentation`): Dev-only React component for visual feedback to Claude Code. Click/annotate dashboard elements → structured markdown → paste to agent.
+- **Liveline**: Single-canvas React chart (60fps, zero deps). Candidate for audit trail timeline and action frequency visualization on the dashboard.
+
 ## Git Conventions
 
 - Commit messages: Conventional commits (`feat:`, `fix:`, `test:`, `docs:`)

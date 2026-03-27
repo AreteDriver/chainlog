@@ -39,7 +39,7 @@ jobs:
           pip install pip-audit
       - name: Run pip-audit
         working-directory: python
-        run: pip-audit
+        run: pip-audit --ignore-vuln CVE-2026-4539  # Pygments ReDoS — no upstream fix available
 
   npm-audit:
     name: npm Audit

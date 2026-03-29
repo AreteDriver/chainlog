@@ -34,7 +34,7 @@
     "chalk": "^5.4.1"
   },
   "devDependencies": {
-    "typescript": "^5.8.2",
+    "typescript": "^6.0.2",
     "tsx": "^4.19.0",
     "vitest": "^3.1.0",
     "@types/node": "^25.5.0"

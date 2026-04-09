@@ -6,3 +6,5 @@ coverage/
 coverage.json
 .env
 *.log
+
+python/test_venv/

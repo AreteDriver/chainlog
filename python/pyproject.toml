@@ -21,7 +21,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
-    "web3>=7.15.0",
+    "web3>=7.16.0",
 ]
 
 [project.optional-dependencies]

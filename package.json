@@ -39,7 +39,7 @@
   "homepage": "https://github.com/AreteDriver/chainlog#readme",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^7.0.0",
-    "hardhat": "^3.4.3"
+    "hardhat": "^3.4.5"
   },
   "overrides": {
     "undici": "^7.10.0",

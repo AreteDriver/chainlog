@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^2.2.10",
-    "@tanstack/react-query": "^5.90.21",
+    "@tanstack/react-query": "^5.100.14",
     "ethers": "^6.16.0",
-    "next": "^16.2.4",
+    "next": "^16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.3",
     "viem": "^2.47.0",

@@ -13,12 +13,14 @@ const config: HardhatUserConfig = {
   },
   networks: {
     baseSepolia: {
+      type: "http",
       url: process.env.BASE_SEPOLIA_RPC || "https://sepolia.base.org",
       accounts: process.env.DEPLOYER_PRIVATE_KEY
         ? [process.env.DEPLOYER_PRIVATE_KEY]
         : [],
     },
     base: {
+      type: "http",
       url: process.env.BASE_RPC || "https://mainnet.base.org",
       accounts: process.env.DEPLOYER_PRIVATE_KEY
         ? [process.env.DEPLOYER_PRIVATE_KEY]

@@ -2,6 +2,7 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox-mocha-ethers";
 
 const config: HardhatUserConfig = {
+  plugins: ["hardhat-toolbox-mocha-ethers"],
   solidity: {
     version: "0.8.27",
     settings: {

@@ -39,7 +39,7 @@
   "homepage": "https://github.com/AreteDriver/chainlog#readme",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox-mocha-ethers": "^3.0.0",
-    "hardhat": "~3.8.0",
+    "hardhat": "~3.11.0",
     "lodash-es": "^4.18.1"
   },
   "overrides": {

@@ -32,7 +32,7 @@
   ],
   "author": "ARETE (James C. Young)",
   "license": "MIT",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/AreteDriver/chainlog/issues"
   },
